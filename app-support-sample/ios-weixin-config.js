@@ -20,7 +20,7 @@ window.RecordAppBaseFolder=window.PageSet_RecordAppBaseFolder||"https://xiangyue
 后端签名接口参考文档：微信JsSDK wx.config需使用到后端接口进行签名，文档: https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html 阅读：通过config接口注入权限验证配置、附录1-JS-SDK使用权限签名算法
 后端素材下载接口参考文档: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738727
 **/
-var MyWxApi=window.PageSet_RecordAppWxApi||"https://jiebian.life/api/weixin/git_record"; /*本例子提供的这个api接口：
+var MyWxApi=window.PageSet_RecordAppWxApi; /*本例子提供的这个api接口：
 			会实现两个功能，ajax POST请求参数如下(都是两个参数，完整细节看下面ajax调用):
 				功能一、action="sign" //JsSDK签名
 						url="https://x.com/page" //当前页面url地址,需要对这个地址进行签名
@@ -229,7 +229,7 @@ var InitJsSDK=function(App,MyWxApi,ajax){
 		
 		var config=function(data){
 			wx.config({
-				debug:false
+				debug:true
 				,appId:data.appid
 				,timestamp:data.timestamp
 				,nonceStr:data.noncestr
@@ -242,6 +242,7 @@ var InitJsSDK=function(App,MyWxApi,ajax){
 			});
 			wx.error(function(res){
 				console.error("wx.config",res);
+				// document.getElementById('debug-span').innerHTML = JSON.stringify(res);
 				end(res.errMsg);
 			});
 			wx.ready(function(){
@@ -250,10 +251,13 @@ var InitJsSDK=function(App,MyWxApi,ajax){
 			});
 		};
 		var href=window.Bad_WeixinIOSH5HistoryInitLocation||location.href;
+		document.getElementById('debug-span').innerHTML = "calling sign api on: " + MyWxApi;
 		ajax(MyWxApi,{
 			action:"sign"
 			,url:href.replace(/#.*/g,"")
 		},function(data){
+			document.getElementById('debug-span').innerHTML = JSON.stringify(data);
+			alert(JSON.stringify(data.v));
 			config(data.v);
 		},end);
 	};
