@@ -21,7 +21,7 @@ console.log(Tips);
 后端签名接口参考文档：微信JsSDK wx.config需使用到后端接口进行签名，文档: https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html 阅读：通过config接口注入权限验证配置、附录1-JS-SDK使用权限签名算法
 后端素材下载接口参考文档: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1444738727
 **/
-var PageSet_RecordAppWxApi="";
+var PageSet_RecordAppWxApi="https://6ikepvy0il.execute-api.ap-east-1.amazonaws.com/default/get-wechat-jsapi-signature";
 /*这个api接口：
 	会实现两个功能，ajax POST请求参数如下(都是两个参数，完整细节看下面ajax调用):
 		功能一、action="sign" //JsSDK签名
